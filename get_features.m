@@ -1,6 +1,6 @@
 function [ feat ] = get_features( s, loc, val )
 % this function gives the pairing of points according to persistent
-% homology. Every line in the output is in the form of
+% homology. Each row in the output is in the form of
 % [loc_of_birth val_of_birth loc_of_death val_of_death]
 
 [val, p] = bubble_sort(val);
