@@ -3,7 +3,7 @@ function [ feat ] = get_features( s, loc, val )
 % homology. Each row in the output is in the form of
 % [loc_of_birth val_of_birth loc_of_death val_of_death]
 
-[val, p] = bubble_sort(val);
+[val, p] = sort(val);
 
 n = size(loc);
 t = loc;
@@ -23,7 +23,7 @@ for i = 1:1:m(1)
     for j = 1:1:m(2)
         s(i,j) = p1(t(i,j));
     end
-    s(i,:) = bubble_sort(s(i,:)')';
+    s(i,:) = sort(s(i,:))';
 end
 clear t p p1;
 

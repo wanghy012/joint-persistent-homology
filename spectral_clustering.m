@@ -6,7 +6,7 @@ W = zeros(n,n);
 dist = zeros(n,n);
 for i = 1:n
     for j = 1:i-1
-        dist(i,j) = sqrt(sum((feats(i,:)-feats(j,:)).^2));
+        dist(i,j) = sum(abs(feats(i,:)-feats(j,:)));
         dist(j,i) = dist(i,j);
     end
 end
