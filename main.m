@@ -4,7 +4,7 @@ k = 5;
 %generate functions and their features
 D=0;
 N=1;
-for i=1:0
+for i=1:100
     [s,loc,val] = gen_function();
     feat = get_features(s, loc, val, 0.2);
     [n,~] = size(feat);
@@ -35,7 +35,7 @@ avg2 = sum(sum(feats(:,[2 4])))/2/D;
 %clustering
 [idx,pairs,idx_min,idx_max] = cluster_all_pairs(npairs, feats, k);
 
-%%
+%%%
 count = zeros(2*k,2*k);
 Ey2 = zeros(2*k,1);
 Ey1 = zeros(2*k,1);
@@ -55,23 +55,13 @@ count = count + count';
 D = diag(sum(count));
 L=D-count;
 x(:,2)=pinv(L)*Ey2 + avg2;
-x(:,1)=pinv(L)*Ey1 + avg1
+x(:,1)=pinv(L)*Ey1 + avg1;
+[~,p] = sort(x(:,1));
+plot([-1;x(p,1);12],[-1;x(p,2);3]);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%testing
-% avgdiff = zeros(5,5);
-% count = zeros(5,5);
-% [N,~] = size(idx);
-% for i=1:N
-%     x = idx_min(idx(i));
-%     y = idx_max(idx(i));
-%     avgdiff(x,y) = avgdiff(x,y)+pairs(i,4)-pairs(i,2);
-%     count(x,y) = count(x,y)+1;
-% end
-% avgdiff = avgdiff./count;
-%     
-%         
+
 
 
        
