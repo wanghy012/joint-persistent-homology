@@ -1,7 +1,12 @@
-function [ feat ] = get_features( s, loc, val )
+function [ feat ] = get_features( s, loc, val, eps )
 % this function gives the pairing of points according to persistent
 % homology. Each row in the output is in the form of
 % [loc_of_birth val_of_birth loc_of_death val_of_death]
+% ignore the pairs whose persistence is smaller than eps;
+
+if nargin <4
+    eps = 0;
+end
 
 [val, p] = sort(val);
 
@@ -45,8 +50,10 @@ for i = 1:n(1)
                     t = tag(i);
                     t1 = tag(s(j,1));
                 end
-                feat(N,:) = [loc(t), val(t), loc(i), val(i)];
-                N = N+1;
+                if val(i)-val(t) > eps
+                    feat(N,:) = [loc(t), val(t), loc(i), val(i)];
+                    N = N+1;
+                end
                 for k = 1:n(1)
                     if tag(k) == t
                         tag(k) = t1;
