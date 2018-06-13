@@ -3,11 +3,11 @@ function [ index ] = spectral_clustering( L, k )
 
 [n,~] = size(L);
 [eigvec,eigv]=eig(L);
-eigval = diag(eigv);
+eigval = real(diag(eigv));
 [~, idx] = sort(eigval);
 kvec = zeros(n,k);
 for i = 1:k
-    kvec(:,i) = eigvec(:,idx(i));
+    kvec(:,i) = real(eigvec(:,idx(i)));
 end
 
 index = kmeans(kvec, k);

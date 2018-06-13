@@ -1,11 +1,12 @@
-function [ idx, pairs, cmin, cmax ] = cluster_all_pairs(npairs, feats, k)
+function [ idx, pairs, idx_min, idx_max ] = cluster_all_pairs(npairs, feats, k)
 % input: npairs(i) is the number of pairs in the i-th function. feats is the
 % collections of all persistent pairs from each the functions. k is the
 % number of pairs.
 
 %output: pairs is all the pairs from each function, and idx gives the clustering
 %result. cmin and cmax gives the connection between clusters through 
-%common local minimum/maximum.
+%common local minimum/maximum. Pairs in clusters with the same
+%idx_min/idx_max value share the same min/max.
 
 %first generate all pairs
 N = max(size(npairs));
@@ -47,7 +48,6 @@ idx = spectral_clustering(L, k^2);
 %get cmin, cmax
 cmin=zeros(k^2,k^2);
 cmax=zeros(k^2,k^2);
-
 D=0;
 N = max(size(npairs));
 for i=1:N
@@ -62,6 +62,20 @@ for i=1:N
     end
     D = D+n^2;
 end
+
+%get idx_min idx_max
+for i=1:k^2
+    cmin(i,i)=0;
+    cmax(i,i)=0;
+end
+W=cmin;
+D = diag(sum(W));
+L =D^(-.5)*(D-W)*D^(-.5);
+idx_min = spectral_clustering(L,k);
+W=cmax;
+D = diag(sum(W));
+L =D^(-.5)*(D-W)*D^(-.5);
+idx_max = spectral_clustering(L,k);
 
 end
 
