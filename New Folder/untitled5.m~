@@ -1,0 +1,33 @@
+clear all;
+
+sr = 1/pi;
+f1 = @(x) sin(x)+0.1*x;
+f2 = @(x) cos(x)+0.1*x;
+I = [0,10*pi];
+
+for i=1:2:50
+    samples(i) = gen_sample(I, f1, sr);
+    samples(i+1) = gen_sample(I, f2, sr);
+    diagrams(i) = get_diagram(samples(i));
+    diagrams(i+1) = get_diagram(samples(i+1));
+end
+
+dsim = zeros(50,50);
+for i=1:50
+    for j=i+1:50
+        dsim(i,j) = d_1(samples(i),samples(j));
+        dsim(j,i) = dsim(i,j);
+    end
+end
+
+[gap1,cluster1] = spectral_gap(dsim);
+
+dsim = zeros(50,50);
+for i=1:50
+    for j=i+1:50
+        dsim(i,j) = d_w1(diagrams(i),diagrams(j));
+        dsim(j,i) = dsim(i,j);
+    end
+end
+
+[gap2,cluster2] = spectral_gap(dsim);
