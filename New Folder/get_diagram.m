@@ -1,5 +1,10 @@
 function [ res ] = get_diagram( samples )
 
+if isNull(samples)
+    res = libpointer('doublePtrPtr', []);
+    return;
+end
+
 s = get(samples, 'Value');
 [n,~] = size(s);
 

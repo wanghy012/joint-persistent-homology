@@ -19,6 +19,6 @@ eigval = diag(eigv);
 res = eigval;
 v1 = eigvector(:,idx(1));
 v2 = eigvector(:,idx(2));
-cluster = kmeans(eigvector(:,idx(1:2)),2);
+cluster = kmeans(real(eigvector(:,idx(1:2))),2);
 end
 

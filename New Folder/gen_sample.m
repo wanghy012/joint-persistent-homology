@@ -5,8 +5,10 @@ function [ res ] = gen_sample(I, f, p)
 x = I(1);
 
 N=1;
+x = x - log(rand())/p;
+samples = [];
 while x<I(2)
-    samples(N,:) = [x, f(x)];
+    samples(N,:) = [x, f(x)+rand()*0];
     N = N+1;
     x = x - log(rand())/p;
 end
