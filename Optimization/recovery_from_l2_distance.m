@@ -1,4 +1,4 @@
-function [ f1, g1 ] = untitled10( f, g, lambda )
+function [ f1, g1 ] = recovery_from_l2_distance( f, g, lambda )
 d=1;
 k=0.1;
 
