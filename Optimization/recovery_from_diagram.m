@@ -14,7 +14,9 @@ h = F(u1,u2);
 w2 = W2(get_diagram(basis*u1), get_diagram(basis*u2));
 fprintf('h = %f, w2 = %f.\n',h,w2);
 N=1;
-while N<1000
+while N<529
+    plot(1:n,basis*u1,'r',1:n,basis*u2,'--r',1:n,basis*v1,'b',1:n,basis*v2,'--b');
+    %pause(0.2);
     N = N+1;
     df1 = zeros(n,1);
     df2 = zeros(n,1);
@@ -70,31 +72,33 @@ while N<1000
     dh = h-h1;
     h = h1;
     w2 = W2(get_diagram(basis*u1), get_diagram(basis*u2));
-    fprintf('h = %f, w2 = %f.\n',h,w2);
+    fprintf('iter = %d, h = %f, w2 = %f.\n',N,h,w2);
 end
+
+fprintf('Total iterations = %d\n',N);
 end
 
 
-function [val, m1, m2] = W2(diagram1, diagram2)
-n1 = size(diagram1,1);
-n2 = size(diagram2,1);
-
-D = zeros(n1+n2,n1+n2);
-for i=1:n1
-    for j=1:n2
-        D(i,j) = (diagram1(i,2)-diagram2(j,2))^2+(diagram1(i,4)-diagram2(j,4))^2;
-    end
-end
-for i=1:n1
-    D(i,n2+1:n2+n1) = (diagram1(i,2) - diagram1(i,4))^2/2;
-end
-for i=1:n2
-    D(n1+1:n1+n2,i) = (diagram2(i,2) - diagram2(i,4))^2/2;
-end
-M = max(max(D));
-D = M - D;
-[val, m1, m2] = bipartite_matching(D);
-val = M*(n1+n2)-val;
-val = sqrt(val);
-end
+% function [val, m1, m2] = W2(diagram1, diagram2)
+% n1 = size(diagram1,1);
+% n2 = size(diagram2,1);
+% 
+% D = zeros(n1+n2,n1+n2);
+% for i=1:n1
+%     for j=1:n2
+%         D(i,j) = (diagram1(i,2)-diagram2(j,2))^2+(diagram1(i,4)-diagram2(j,4))^2;
+%     end
+% end
+% for i=1:n1
+%     D(i,n2+1:n2+n1) = (diagram1(i,2) - diagram1(i,4))^2/2;
+% end
+% for i=1:n2
+%     D(n1+1:n1+n2,i) = (diagram2(i,2) - diagram2(i,4))^2/2;
+% end
+% M = max(max(D));
+% D = M - D;
+% [val, m1, m2] = bipartite_matching(D);
+% val = M*(n1+n2)-val;
+% val = sqrt(val);
+% end
 
