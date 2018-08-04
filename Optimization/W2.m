@@ -1,4 +1,13 @@
 function [val, t1, t2] = W2(diagram1, diagram2)
+if ~isa(diagram1,'double')
+    diagram1 = get(diagram1,'Value');
+end
+if ~isa(diagram2,'double')
+    diagram2 = get(diagram2,'Value');
+end
+
+
+
 n1 = size(diagram1,1);
 n2 = size(diagram2,1);
 

@@ -34,6 +34,7 @@ for i=1:n
             end
             parent(j) = t2;
         end
+        parent(idx(i)+1) = t2;
     end
 end
 
